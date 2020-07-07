@@ -1,12 +1,10 @@
 <template>
-  <div class="hello">
-    <h2>Protokoll</h2>
     <table class="game_table">
       <thead>
         <tr>
           <td>Spelare</td>
           <td v-for="(player) in players" :key="player.index">
-            <input type="text" v-model="player.name" />
+            <input class="name" type="text" v-model="player.name" />
           </td>
         </tr>
       </thead>
@@ -14,45 +12,44 @@
         <tr v-for="(game,gameId) in gameInfo" :key="game.index" >
           <td>{{ game.name }}</td>
           <td v-for="(player,playerId) in players" :key="player.index">
-            <input  v-on:input="calcPoints(playerId)" type="text" v-model.number="points[playerId][gameId]" />
+            <input  v-on:input="calcPoints(playerId,gameId),calcPointsleft(playerId,gameId)" type="text" v-model.number="points[playerId][gameId]" />
           </td>
-          <td> {{ game.points }} </td>
+          <td> {{   pointsLeft[gameId] }} </td>
         </tr>
       <tr>
         <td>Poäng</td>
-        <td v-for="(player,playerId) in players" :key="player.index">
-        {{ players[playerId].total }}
+        <td  v-for="(player,playerId) in players" :key="player.index">
+        <span class="points" >{{ players[playerId].total }}</span>
         </td>
-      </tr>   
+      </tr>
     </tbody>
     </table>
 
-  </div>
 </template>
 
 <script>
-  const gameInfo = [
-    {
-      name:'H',
-      points:65
-    },
-     {
-      name:'D',
-      points:40
-    },
-     {
-      name:'3M',
-      points:45
-    },
-     {
-      name:'SS',
-      points:20
-    },
-    {
-      name:'Totti',
-      points:155
-    },
-  ]
+const gameInfo = [
+  {
+    name: 'H',
+    points: 65
+  },
+  {
+    name: 'D',
+    points: 40
+  },
+  {
+    name: '3M',
+    points: 45
+  },
+  {
+    name: 'SS',
+    points: 20
+  },
+  {
+    name: 'Totti',
+    points: 155
+  }
+]
 export default {
   name: 'HelloWorld',
 
@@ -61,25 +58,28 @@ export default {
       gameInfo: gameInfo,
       numberOfPlayers: 4,
       players: [],
-      points: []
+      points: [],
+      pointsLeft: [gameInfo[0].points,gameInfo[1].points,gameInfo[2].points,gameInfo[3].points,gameInfo[4].points]
     }
   },
   methods: {
-    calcPoints: function (playerId) {
-    let numOr0 = n => isNaN(n) ? 0 : n
-    console.log(this.points[playerId])
-    this.players[playerId].total =  this.points[playerId].reduce((a, b) => 
-    numOr0(a) + numOr0(b))
-   // console.log(this.points[playerId][5])
+    calcPoints: function (playerId, gameId) {
+      // calc player points
+      let numOr0 = n => isNaN(n) ? 0 : n
+      this.players[playerId].total = this.points[playerId].reduce((a, b) =>
+        numOr0(a) + numOr0(b))
+      // calcPointsleft(gameId);
     },
-    foo: function() {
-      console.log('run');
+    calcPointsleft: function (playerId, gameId) {
+      let sum = this.gameInfo[gameId].points
+      this.pointsLeft[gameId]= sum - this.points[playerId][gameId]
+      
     }
   },
   mounted () {
     while (this.players.length < this.numberOfPlayers) {
-      this.players.push({ name: '',total:0 })
-      this.points.push(['','','','',''])    
+      this.players.push({ name: '', total: 0 })
+      this.points.push([null, null, null, null, null])
     }
   }
 }
@@ -87,19 +87,18 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-h1,
-h2 {
-  font-weight: normal;
+.name[type=text] {
+  font-weight: bold;
+  text-align: center;
+  text-transform:uppercase;
 }
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
+
+.points {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  font-weight: bold;
+  text-align: center;
+  font-size: 20px
 }
 </style>

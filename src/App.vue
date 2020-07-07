@@ -1,28 +1,56 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
-    <HelloWorld/>
+    <Table/>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/table'
+import Table from './components/table'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    Table
   }
 }
 </script>
 
 <style>
+*,html,body {
+  margin: 0;
+  margin-left:3px;
+  margin-right:3px;
+  font-size: 16px;
+  color: black;
+
+}
+
+body{
+  background-color: #e55656;
+  width: 100%;
+}
+
+*[type=text]   {
+  background-color: transparent;
+  width: 32px;
+  border:none;
+  cursor:pointer;
+
+}
+
+table, td {
+  border: 1px solid black;
+  border-collapse:collapse;
+
+}
+
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: black;
-  margin-top: 60px;
+  margin-top: 9px;
+  margin-bottom: 9px;
 }
 </style>
