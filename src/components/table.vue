@@ -71,6 +71,21 @@ export default {
       ]
     };
   },
+  mounted() {
+    if (localStorage.getItem("players")) {
+      try {
+        this.players = JSON.parse(localStorage.getItem('players'));
+        this.points = JSON.parse(localStorage.getItem('points'));
+      } catch(e) {
+        console.log(e);
+      }
+    } else {
+      while (this.players.length < this.numberOfPlayers) {
+        this.players.push({ name: "", total: 0 });
+        this.points.push([null, null, null, null, null]);
+      }
+    }
+  },
   methods: {
     calcTotalPoints: function(playerId, gameId) {
       // calc player points
@@ -100,6 +115,11 @@ export default {
           this.sendResult();
         }
       }
+      this.saveGame();
+    },
+    saveGame() {
+      localStorage.setItem("players", JSON.stringify(this.players));
+      localStorage.setItem("points", JSON.stringify(this.points))
     },
     sendResult() {
       let result = this.players.reduce(
@@ -114,12 +134,6 @@ export default {
         },
         body: JSON.stringify(result)
       });
-    }
-  },
-  mounted() {
-    while (this.players.length < this.numberOfPlayers) {
-      this.players.push({ name: "", total: 0 });
-      this.points.push([null, null, null, null, null]);
     }
   }
 };
