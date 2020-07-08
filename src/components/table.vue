@@ -33,30 +33,30 @@
 <script>
 const gameInfo = [
   {
-    name: 'H',
+    name: "H",
     points: 65
   },
   {
-    name: 'D',
+    name: "D",
     points: 40
   },
   {
-    name: '3M',
+    name: "3M",
     points: 45
   },
   {
-    name: 'SS',
+    name: "SS",
     points: 20
   },
   {
-    name: 'Totti',
+    name: "Totti",
     points: 155
   }
-]
+];
 export default {
-  name: 'HelloWorld',
+  name: "HelloWorld",
 
-  data () {
+  data() {
     return {
       gameInfo: gameInfo,
       numberOfPlayers: 4,
@@ -69,43 +69,60 @@ export default {
         gameInfo[3].points,
         gameInfo[4].points
       ]
-    }
+    };
   },
   methods: {
-    calcTotalPoints: function (playerId, gameId) {
+    calcTotalPoints: function(playerId, gameId) {
       // calc player points
-      let numOr0 = n => (isNaN(parseInt(n)) ? 0 : n)
+      let numOr0 = n => (isNaN(parseInt(n)) ? 0 : n);
       this.players[playerId].total = this.points[playerId].reduce((a, b) => {
-        return numOr0(a) + numOr0(b)
-      })
+        return numOr0(a) + numOr0(b);
+      });
       // calcPointsleft(gameId);
     },
-    calcPointsleft: function (playerId, gameId) {
-      let sum = this.gameInfo[gameId].points
-      let zeros = []
+    calcPointsleft: function(playerId, gameId) {
+      let sum = this.gameInfo[gameId].points;
+      let zeros = [];
       this.points.forEach((p, id) => {
         if (p[gameId] > 0) {
-          sum = sum - p[gameId]
+          sum = sum - p[gameId];
         } else {
-          zeros.push(id)
+          zeros.push(id);
         }
-      })
-      this.pointsLeft[gameId] = sum
+      });
+      this.pointsLeft[gameId] = sum;
       if (sum === 0) {
-        zeros.forEach((pid) => {
-          this.points[pid][gameId] = Math.round(-50 / zeros.length)
-          this.calcTotalPoints(pid, gameId)
-        })
+        zeros.forEach(pid => {
+          this.points[pid][gameId] = Math.round(-50 / zeros.length);
+          this.calcTotalPoints(pid, gameId);
+        });
+        if (gameId === 4) {
+          this.sendResult();
+        }
       }
+    },
+    sendResult() {
+      let result = this.players.reduce(
+        (obj, item) => Object.assign(obj, { [item.name]: item.total }),
+        {}
+      );
+      console.log(result);
+      fetch("/save.php", {
+        method: "POST", // or 'PUT'
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(result)
+      });
     }
   },
-  mounted () {
+  mounted() {
     while (this.players.length < this.numberOfPlayers) {
-      this.players.push({ name: '', total: 0 })
-      this.points.push([null, null, null, null, null])
+      this.players.push({ name: "", total: 0 });
+      this.points.push([null, null, null, null, null]);
     }
   }
-}
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
