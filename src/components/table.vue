@@ -1,40 +1,40 @@
 <template>
   <div>
-  <table>
-    <thead>
-      <tr>
-        <td>Spelare</td>
-        <td v-for="player in players" :key="player.index">
-          <input class="name" type="text" v-model="player.name" />
-        </td>
-      </tr>
-    </thead>
-    <tbody>
-      <tr v-for="(game, gameId) in gameInfo" :key="game.index">
-        <td>{{ game.name }}</td>
-        <td v-for="(player, playerId) in players" :key="player.index">
-          <input
-            v-on:input="
-              calcTotalPoints(playerId, gameId),
-              calcPointsleft(playerId, gameId)
-            "
-            type="text"
-            v-model.number="points[playerId][gameId]"
-          />
-        </td>
-        <td>{{ pointsLeft[gameId] }}</td>
-      </tr>
-      <tr>
-        <td>Poäng</td>
-        <td v-for="(player, playerId) in players" :key="player.index">
-          <span class="points">{{ players[playerId].total }}</span>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-  <button @click="clearGame">Reset</button>
-  <label  @="players.length" for="cp">Antal spelare value </label>
-  <input id="cp" type="text" :value="players.length" name="countPlayers"  >
+    <table>
+      <thead>
+        <tr>
+          <td>Spelare</td>
+          <td v-for="player in players" :key="player.index">
+            <input class="name" type="text" v-model="player.name" />
+          </td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="(game, gameId) in gameInfo" :key="game.index">
+          <td>{{ game.name }}</td>
+          <td v-for="(player, playerId) in players" :key="player.index">
+            <input
+              v-on:input="
+                calcTotalPoints(playerId, gameId),
+                  calcPointsleft(playerId, gameId)
+              "
+              type="text"
+              v-model.number="points[playerId][gameId]"
+            />
+          </td>
+          <td>{{ pointsLeft[gameId] }}</td>
+        </tr>
+        <tr>
+          <td>Poäng</td>
+          <td v-for="(player, playerId) in players" :key="player.index">
+            <span class="points">{{ players[playerId].total }}</span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <button @click="clearGame">Reset</button>
+    <label   for="cp">Antal spelare value </label>
+    <input @change="startNewGame" id="cp" type="text" v-model="numberOfPlayers" name="countPlayers" />
   </div>
 </template>
 
@@ -68,6 +68,7 @@ export default {
     return {
       gameInfo: gameInfo,
       numberOfPlayersDefault: 4,
+      numberOfPlayers: 4,
       players: [],
       points: [],
       pointsLeft: [
@@ -91,6 +92,15 @@ export default {
     }
   },
   methods: {
+    startNewGame () {
+      console.log('hej')
+      this.players = []
+      this.points = []
+      while (this.players.length < this.numberOfPlayers) {
+        this.players.push({ name: '', total: 0 })
+        this.points.push([null, null, null, null, null])
+      }
+    },
     calcTotalPoints (playerId, gameId) {
       // calc player points
       let numOr0 = n => (isNaN(parseInt(n)) ? 0 : n)
