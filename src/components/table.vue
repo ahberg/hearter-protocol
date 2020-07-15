@@ -1,4 +1,5 @@
 <template>
+  <div>
   <table>
     <thead>
       <tr>
@@ -15,7 +16,7 @@
           <input
             v-on:input="
               calcTotalPoints(playerId, gameId),
-                calcPointsleft(playerId, gameId)
+              calcPointsleft(playerId, gameId)
             "
             type="text"
             v-model.number="points[playerId][gameId]"
@@ -31,6 +32,10 @@
       </tr>
     </tbody>
   </table>
+  <button @click="clearGame">Reset</button>
+  <label  @="players.length" for="cp">Antal spelare value </label>
+  <input id="cp" type="text" :value="players.length" name="countPlayers"  >
+  </div>
 </template>
 
 <script>
@@ -57,12 +62,12 @@ const gameInfo = [
   }
 ]
 export default {
-  name: 'HelloWorld',
+  name: 'HjartarTable',
 
   data () {
     return {
       gameInfo: gameInfo,
-      numberOfPlayers: 4,
+      numberOfPlayersDefault: 4,
       players: [],
       points: [],
       pointsLeft: [
@@ -79,7 +84,7 @@ export default {
       this.players = JSON.parse(localStorage.getItem('players'))
       this.points = JSON.parse(localStorage.getItem('points'))
     } else {
-      while (this.players.length < this.numberOfPlayers) {
+      while (this.players.length < this.numberOfPlayersDefault) {
         this.players.push({ name: '', total: 0 })
         this.points.push([null, null, null, null, null])
       }
@@ -115,6 +120,10 @@ export default {
         }
       }
       this.saveGame()
+    },
+    clearGame () {
+      localStorage.removeItem('points')
+      localStorage.removeItem('players')
     },
     saveGame () {
       localStorage.setItem('players', JSON.stringify(this.players))
