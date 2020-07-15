@@ -16,7 +16,7 @@
             <input
               v-on:input="
                 calcTotalPoints(playerId, gameId),
-                  calcPointsleft(playerId, gameId)
+                  calcPointsleft(gameId)
               "
               type="text"
               v-model.number="points[playerId][gameId]"
@@ -84,6 +84,7 @@ export default {
     if (localStorage.getItem('players')) {
       this.players = JSON.parse(localStorage.getItem('players'))
       this.points = JSON.parse(localStorage.getItem('points'))
+      this.refreshPointsLeft()
     } else {
       while (this.players.length < this.numberOfPlayersDefault) {
         this.players.push({ name: '', total: 0 })
@@ -93,7 +94,6 @@ export default {
   },
   methods: {
     startNewGame () {
-      console.log('hej')
       this.players = []
       this.points = []
       while (this.players.length < this.numberOfPlayers) {
@@ -109,7 +109,7 @@ export default {
       })
       // calcPointsleft(gameId);
     },
-    calcPointsleft (playerId, gameId) {
+    calcPointsleft (gameId) {
       let sum = this.gameInfo[gameId].points
       let zeros = []
       this.points.forEach((p, id) => {
@@ -130,6 +130,11 @@ export default {
         }
       }
       this.saveGame()
+    },
+    refreshPointsLeft () {
+      this.pointsLeft.forEach((p, gameId) => {
+        this.calcPointsleft(gameId)
+      })
     },
     clearGame () {
       localStorage.removeItem('points')
