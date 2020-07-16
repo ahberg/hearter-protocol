@@ -35,8 +35,8 @@
     </table>
     </div>
     <div>
-      <button @click="clearGame">Reset</button>
-      <label   for="cp">Antal spelare value </label>
+      <button @click="clearGame">Nytt spel</button>
+      <label   for="cp">Antal spelare</label>
       <input @change="startNewGame" id="cp" type="text" v-model="numberOfPlayers" name="countPlayers" />
     </div>
   </div>
@@ -107,7 +107,6 @@ export default {
       this.players[playerId].total = this.points[playerId].reduce((a, b) => {
         return numOr0(a) + numOr0(b)
       })
-      // calcPointsleft(gameId);
     },
     calcPointsleft (gameId) {
       let sum = this.gameInfo[gameId].points

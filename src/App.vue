@@ -22,7 +22,9 @@ export default {
   margin-right:3px;
   font-size: 16px;
   color: black;
-
+}
+div {
+  margin-bottom:5px
 }
 
 body{
@@ -48,7 +50,6 @@ table, td {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: black;
   margin-top: 9px;
   margin-bottom: 9px;
