@@ -1,5 +1,6 @@
 <template>
   <div>
+    <div>
     <table>
       <thead>
         <tr>
@@ -32,9 +33,12 @@
         </tr>
       </tbody>
     </table>
-    <button @click="clearGame">Reset</button>
-    <label   for="cp">Antal spelare value </label>
-    <input @change="startNewGame" id="cp" type="text" v-model="numberOfPlayers" name="countPlayers" />
+    </div>
+    <div>
+      <button @click="clearGame">Reset</button>
+      <label   for="cp">Antal spelare value </label>
+      <input @change="startNewGame" id="cp" type="text" v-model="numberOfPlayers" name="countPlayers" />
+    </div>
   </div>
 </template>
 
@@ -67,7 +71,6 @@ export default {
   data () {
     return {
       gameInfo: gameInfo,
-      numberOfPlayersDefault: 4,
       numberOfPlayers: 4,
       players: [],
       points: [],
@@ -86,10 +89,7 @@ export default {
       this.points = JSON.parse(localStorage.getItem('points'))
       this.refreshPointsLeft()
     } else {
-      while (this.players.length < this.numberOfPlayersDefault) {
-        this.players.push({ name: '', total: 0 })
-        this.points.push([null, null, null, null, null])
-      }
+      this.startNewGame()
     }
   },
   methods: {
@@ -137,8 +137,8 @@ export default {
       })
     },
     clearGame () {
-      localStorage.removeItem('points')
-      localStorage.removeItem('players')
+      this.startNewGame()
+      this.refreshPointsLeft()
     },
     saveGame () {
       localStorage.setItem('players', JSON.stringify(this.players))
