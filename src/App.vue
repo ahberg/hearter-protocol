@@ -28,9 +28,6 @@ h1 {
    font-size: 1.5em;
    margin-bottom: 5px;
 }
-div {
-  margin-bottom:5px
-}
 
 body{
   background-color: #e55656;
@@ -47,11 +44,12 @@ body{
 table, td {
   border: 1px solid black;
   border-collapse:collapse;
-
+  margin-bottom:5px
 }
 
 #nav {
-  padding: 30px;
+  padding: 20px;
+  padding-bottom: 10px;
 }
 
 #nav a {
