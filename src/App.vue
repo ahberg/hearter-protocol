@@ -39,7 +39,10 @@ body{
   cursor:pointer;
 
 }
+a {
+text-decoration: none;
 
+}
 table, td {
   border: 1px solid black;
   border-collapse:collapse;

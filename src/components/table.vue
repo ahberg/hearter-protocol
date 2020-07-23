@@ -16,7 +16,7 @@
           <td v-for="(player, playerId) in players" :key="player.index">
             <input
               v-on:input="
-                calcTotalPoints(playerId, gameId),
+                calcTotalPoints(playerId),
                   calcPointsleft(gameId)
               "
               type="text"
@@ -101,7 +101,7 @@ export default {
         this.points.push([null, null, null, null, null])
       }
     },
-    calcTotalPoints (playerId, gameId) {
+    calcTotalPoints (playerId) {
       // calc player points
       let numOr0 = n => (isNaN(parseInt(n)) ? 0 : n)
       this.players[playerId].total = this.points[playerId].reduce((a, b) => {
