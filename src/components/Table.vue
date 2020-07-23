@@ -66,7 +66,7 @@ const gameInfo = [
   }
 ]
 export default {
-  name: 'HjartarTable',
+  name: 'Table',
 
   data () {
     return {

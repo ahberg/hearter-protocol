@@ -1,21 +1,21 @@
 <template>
   <div id="app">
-    <Table/>
+    <div id="nav">
+      <router-link to="/">Home</router-link> |
+      <router-link to="/about">About</router-link>
+    </div>
+    <router-view/>
   </div>
 </template>
 
-<script>
-import Table from './components/table'
-
-export default {
-  name: 'App',
-  components: {
-    Table
-  }
-}
-</script>
-
 <style>
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: #2c3e50;
+}
+
 *,html,body {
   margin: 0;
   margin-left:3px;
@@ -39,22 +39,22 @@ body{
   cursor:pointer;
 
 }
-a {
-text-decoration: none;
-
-}
 table, td {
   border: 1px solid black;
   border-collapse:collapse;
 
 }
 
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  color: black;
-  margin-top: 9px;
-  margin-bottom: 9px;
+#nav {
+  padding: 30px;
+}
+
+#nav a {
+  font-weight: bold;
+  text-decoration: none;
+}
+
+#nav a.router-link-exact-active {
+  text-decoration: underline;
 }
 </style>
