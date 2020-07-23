@@ -1,8 +1,8 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+      <router-link to="/">Protokoll</router-link> |
+      <router-link :to="{name:'Rules'}">Regler</router-link>
     </div>
     <router-view/>
   </div>
@@ -22,6 +22,11 @@
   margin-right:3px;
   font-size: 16px;
   color: black;
+}
+
+h1 {
+   font-size: 1.5em;
+   margin-bottom: 5px;
 }
 div {
   margin-bottom:5px
