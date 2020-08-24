@@ -24,15 +24,16 @@
   color: black;
 }
 
+body{
+  background-color: #e55656;
+  width: 100%;
+}
+
 h1 {
    font-size: 1.5em;
    margin-bottom: 5px;
 }
 
-body{
-  background-color: #e55656;
-  width: 100%;
-}
 
 *[type=text]   {
   background-color: transparent;
@@ -41,6 +42,10 @@ body{
   cursor:pointer;
 
 }
+p {
+ margin-bottom: 1em; 
+}
+
 table, td {
   border: 1px solid black;
   border-collapse:collapse;
