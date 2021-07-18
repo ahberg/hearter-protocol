@@ -108,7 +108,7 @@ export default {
         return numOr0(a) + numOr0(b)
       })
     },
-    calcPointsleft (gameId) {
+    calcPointsleft (gameId, fromRefresh = false) {
       let sum = this.gameInfo[gameId].points
       let zeros = []
       this.points.forEach((p, id) => {
@@ -124,15 +124,17 @@ export default {
           this.points[pid][gameId] = Math.round(-50 / zeros.length)
           this.calcTotalPoints(pid, gameId)
         })
-        if (gameId === 4) {
+        if (gameId === 4 && !fromRefresh) {
           this.sendResult()
         }
       }
-      this.saveGame()
+      if(!fromRefresh){
+        this.saveGame()
+      }
     },
     refreshPointsLeft () {
       this.pointsLeft.forEach((p, gameId) => {
-        this.calcPointsleft(gameId)
+        this.calcPointsleft(gameId,true)
       })
     },
     clearGame () {
