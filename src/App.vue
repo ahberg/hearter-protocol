@@ -1,68 +1,30 @@
+<script setup lang="ts">
+import HelloWorld from './components/HelloWorld.vue'
+</script>
+
 <template>
-  <div id="app">
+  <div>
     <div id="nav">
       <router-link to="/">Protokoll</router-link> |
-      <router-link :to="{name:'Rules'}">Regler</router-link>
+      <router-link :to="{ name: 'Rules' }">Regler</router-link>
     </div>
-    <router-view/>
+    <router-view />
   </div>
 </template>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  color: #2c3e50;
+<style scoped>
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
 }
 
-*,html,body {
-  margin: 0;
-  margin-left:3px;
-  margin-right:3px;
-  font-size: 16px;
-  color: black;
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
 }
 
-body{
-  background-color: #e55656;
-  width: 100%;
-}
-
-h1 {
-   font-size: 1.5em;
-   margin-bottom: 5px;
-}
-
-
-*[type=text]   {
-  background-color: transparent;
-  width: 32px;
-  border:none;
-  cursor:pointer;
-
-}
-p {
- margin-bottom: 1em; 
-}
-
-table, td {
-  border: 1px solid black;
-  border-collapse:collapse;
-  margin-bottom:5px
-}
-
-#nav {
-  padding: 20px;
-  padding-bottom: 10px;
-}
-
-#nav a {
-  font-weight: bold;
-  text-decoration: none;
-}
-
-#nav a.router-link-exact-active {
-  text-decoration: underline;
+.logo.vue:hover {
+  filter: drop-shadow(0 0 2em #42b883aa);
 }
 </style>
